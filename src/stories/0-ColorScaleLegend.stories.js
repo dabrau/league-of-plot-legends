@@ -8,3 +8,5 @@ export default {
 
 
 export const Default = () => <Legend />;
+
+export const WithTitle = () => <Legend title='Titled Color Scale' />;

@@ -9,7 +9,7 @@ const defaultColorScale = scaleSequential()
   .domain([0, 1])
   .interpolator(interpolateBlues);
 
-function colorRamp(colorScale, width) {
+const colorRamp = (colorScale, width) => {
   const canvas = document.createElement('canvas');
   const context = canvas.getContext('2d');
   for (let i = 0; i < width; ++i) {
@@ -17,8 +17,48 @@ function colorRamp(colorScale, width) {
     context.fillRect(i, 0, 1, 40);
   }
   return canvas;
-}
+};
 
+// TODO seperate for other legends
+// const d3ColorScaleLegend = (svg) => {
+//   const legendSvg = select(svg);
+
+//   legendSvg.selectAll('*').remove();
+
+//   legendSvg
+//     .attr('width', width)
+//     .attr('height', height)
+//     .attr('viewBox', [0, 0, width, height])
+//     .style('overflow', 'visible')
+//     .style('display', 'block');
+
+//   let tickAdjust = g => g.selectAll('.tick line').attr('y1', marginTop + marginBottom - height);
+//   const legendColorScale = Object.assign(colorScale.copy()
+//       .interpolator(interpolateRound(marginLeft, width - marginRight)),
+//       {range() { return [marginLeft, width - marginRight]; }});
+
+
+//   legendSvg.append('image')
+//       .attr('x', marginLeft)
+//       .attr('y', marginTop)
+//       .attr('width', width - marginLeft - marginRight)
+//       .attr('height', height)
+//       .attr('preserveAspectRatio', 'none')
+//       .attr('xlink:href', colorRamp(colorScale.interpolator(), width).toDataURL());
+
+//   legendSvg.append('g')
+//     .attr('transform', `translate(0,${height - marginBottom})`)
+//     .call(axisBottom(legendColorScale))
+//     .call(tickAdjust)
+//     .call(g => g.select('.domain').remove())
+//     .call(g => g.append('text')
+//       .attr('x', marginLeft)
+//       .attr('y', marginTop + marginBottom - height - 6)
+//       .attr('fill', 'currentColor')
+//       .attr('text-anchor', 'start')
+//       .attr('font-weight', 'bold')
+//       .text(title));
+// };
 
 function Legend({
   colorScale = defaultColorScale,
