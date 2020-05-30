@@ -19,50 +19,9 @@ const colorRamp = (colorScale, width) => {
   return canvas;
 };
 
-// TODO seperate for other legends
-// const d3ColorScaleLegend = (svg) => {
-//   const legendSvg = select(svg);
-
-//   legendSvg.selectAll('*').remove();
-
-//   legendSvg
-//     .attr('width', width)
-//     .attr('height', height)
-//     .attr('viewBox', [0, 0, width, height])
-//     .style('overflow', 'visible')
-//     .style('display', 'block');
-
-//   let tickAdjust = g => g.selectAll('.tick line').attr('y1', marginTop + marginBottom - height);
-//   const legendColorScale = Object.assign(colorScale.copy()
-//       .interpolator(interpolateRound(marginLeft, width - marginRight)),
-//       {range() { return [marginLeft, width - marginRight]; }});
-
-
-//   legendSvg.append('image')
-//       .attr('x', marginLeft)
-//       .attr('y', marginTop)
-//       .attr('width', width - marginLeft - marginRight)
-//       .attr('height', height)
-//       .attr('preserveAspectRatio', 'none')
-//       .attr('xlink:href', colorRamp(colorScale.interpolator(), width).toDataURL());
-
-//   legendSvg.append('g')
-//     .attr('transform', `translate(0,${height - marginBottom})`)
-//     .call(axisBottom(legendColorScale))
-//     .call(tickAdjust)
-//     .call(g => g.select('.domain').remove())
-//     .call(g => g.append('text')
-//       .attr('x', marginLeft)
-//       .attr('y', marginTop + marginBottom - height - 6)
-//       .attr('fill', 'currentColor')
-//       .attr('text-anchor', 'start')
-//       .attr('font-weight', 'bold')
-//       .text(title));
-// };
-
 function Legend({
   colorScale = defaultColorScale,
-  title = 'Your Title here',
+  label = 'Your Label Here',
   tickSize = 6,
   width = 320,
   height = 44 + tickSize,
@@ -110,8 +69,8 @@ function Legend({
         .attr('fill', 'currentColor')
         .attr('text-anchor', 'start')
         .attr('font-weight', 'bold')
-        .text(title));
-  }, [colorScale, height, marginBottom, title]);
+        .text(label));
+  }, [colorScale, height, marginBottom, label, width, tickSize]);
 
   return <svg ref={legendRef}></svg>;
 }
