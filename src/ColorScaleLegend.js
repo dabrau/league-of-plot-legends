@@ -11,10 +11,11 @@ const defaultColorScale = scaleSequential()
 
 const colorRamp = (colorScale, width) => {
   const canvas = document.createElement('canvas');
+  canvas.width = width;
   const context = canvas.getContext('2d');
   for (let i = 0; i < width; ++i) {
     context.fillStyle = colorScale(i / (width - 1));
-    context.fillRect(i, 0, 1, 40);
+    context.fillRect(i, 0, 1, 44);
   }
   return canvas;
 };
@@ -32,7 +33,7 @@ function Legend({
 }) {  
   const legendRef = useRef(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const legendSvg = select(legendRef.current);
 
     legendSvg.selectAll('*').remove();
@@ -56,7 +57,7 @@ function Legend({
         .attr('width', width - marginLeft - marginRight)
         .attr('height', height)
         .attr('preserveAspectRatio', 'none')
-        .attr('xlink:href', colorRamp(colorScale.interpolator(), width).toDataURL());
+        .attr('xlink:href', colorRamp(colorScale, width - marginLeft - marginRight).toDataURL());
 
     legendSvg.append('g')
       .attr('transform', `translate(0,${height - marginBottom})`)
